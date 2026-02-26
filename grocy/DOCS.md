@@ -39,6 +39,7 @@ Example add-on configuration:
 culture: en
 currency: USD
 entry_page: stock
+grocycode_type: 2D
 features:
   batteries: true
   calendar: true
@@ -156,6 +157,17 @@ You can use the one of the following values:
 - `tasks`
 
 By default the homepage is set to the stock overview.
+
+### Option: `grocycode_type`
+
+Allows you to change the barcode type for GrocyCodes. Useful if your barcode scanner doesn't support the default.
+
+You can use the one of the following values:
+
+- `1D` (Code128)
+- `2D` (DataMatrix)
+
+Since v4.5.0 Grocy uses `2D` as the default.
 
 ### Option: `features`
 
