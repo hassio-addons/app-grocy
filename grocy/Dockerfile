@@ -1,68 +1,65 @@
-ARG BUILD_FROM=ghcr.io/hassio-addons/base-nodejs:0.2.5
+ARG BUILD_FROM=ghcr.io/hassio-addons/base:20.0.3
 # hadolint ignore=DL3006
 FROM ${BUILD_FROM}
+
+# Get composer
+# hadolint ignore=DL3022
+COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
 
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Setup base
-ARG GROCY_VERSION="v4.5.0"
+ARG GROCY_VERSION="v4.6.0"
 # hadolint ignore=DL3003
 RUN \
     apk add --no-cache \
-        composer=2.7.7-r0 \
-        nginx=1.24.0-r16 \
-        patch=2.7.6-r10 \
-        php82-ctype=8.2.26-r0 \
-        php82-exif=8.2.26-r0 \
-        php82-fileinfo=8.2.26-r0 \
-        php82-fpm=8.2.26-r0 \
-        php82-gd=8.2.26-r0 \
-        php82-iconv=8.2.26-r0 \
-        php82-intl=8.2.26-r0 \
-        php82-ldap=8.2.26-r0 \
-        php82-mbstring=8.2.26-r0 \
-        php82-opcache=8.2.26-r0 \
-        php82-pdo_sqlite=8.2.26-r0 \
-        php82-pdo=8.2.26-r0 \
-        php82-simplexml=8.2.26-r0 \
-        php82-tokenizer=8.2.26-r0 \
-        php82=8.2.26-r0 \
+        nginx=1.28.3-r0 \
+        nodejs=24.14.1-r0 \
+        npm=11.11.0-r0 \
+        patch=2.8-r0 \
+        php85-ctype=8.5.5-r0 \
+        php85-exif=8.5.5-r0 \
+        php85-fileinfo=8.5.5-r0 \
+        php85-fpm=8.5.5-r0 \
+        php85-gd=8.5.5-r0 \
+        php85-iconv=8.5.5-r0 \
+        php85-intl=8.5.5-r0 \
+        php85-ldap=8.5.5-r0 \
+        php85-mbstring=8.5.5-r0 \
+        php85-pdo_sqlite=8.5.5-r0 \
+        php85-pdo=8.5.5-r0 \
+        php85-simplexml=8.5.5-r0 \
+        php85=8.5.5-r0 \
     \
     && apk add --no-cache --virtual .build-dependencies \
-        git=2.43.7-r0 \
-        php82-openssl=8.2.26-r0 \
-        php82-phar=8.2.26-r0 \
-    \
-    && yarn global add modclean \
+        git=2.52.0-r0 \
+        php85-openssl=8.5.5-r0 \
+        php85-phar=8.5.5-r0 \
     \
     && git clone --branch "${GROCY_VERSION}" --depth=1 \
         https://github.com/grocy/grocy.git /var/www/grocy \
     \
     && cd /var/www/grocy \
     \
-    && composer install --no-dev \
-    && yarn --production \
+    && php85 /usr/local/bin/composer install --no-dev --ignore-platform-req=ext-tokenizer \
+    && npm install \
+        --no-audit \
+        --no-fund \
+        --no-update-notifier \
+        --omit=dev \
     \
-    && modclean \
-        --path /var/www/grocy/public \
-        --no-progress \
-        --keep-empty \
-        --run \
-    \
-    && yarn global remove modclean \
-    && yarn cache clean \
+    && npm cache clean --force \
     && apk del --no-cache --purge .build-dependencies \
     \
     && find /var/www/ -type f -name "*.md" -depth -exec rm -f {} \; \
     && rm -f -r \
         /etc/nginx \
-        /etc/php8/php-fpm.d/www.conf \
+        /etc/php85/php-fpm.d/www.conf \
         /root/.composer \
+        /root/.npm \
         /tmp/* \
-        /usr/lib/node_modules \
         /usr/local/bin/composer \
-        /usr/local/share/.cache \
         /var/www/grocy/.git \
         /var/www/grocy/.tx \
         /var/www/grocy/.vscode \
@@ -88,13 +85,13 @@ LABEL \
     io.hass.arch="${BUILD_ARCH}" \
     io.hass.type="addon" \
     io.hass.version=${BUILD_VERSION} \
-    maintainer="Franck Nijhof <frenck@addons.community>" \
+    maintainer="Franck Nijhof <opensource@frenck.dev>" \
     org.opencontainers.image.title="${BUILD_NAME}" \
     org.opencontainers.image.description="${BUILD_DESCRIPTION}" \
-    org.opencontainers.image.vendor="Home Assistant Community Add-ons" \
-    org.opencontainers.image.authors="Franck Nijhof <frenck@addons.community>" \
+    org.opencontainers.image.vendor="Home Assistant Community Apps" \
+    org.opencontainers.image.authors="Franck Nijhof <opensource@frenck.dev>" \
     org.opencontainers.image.licenses="MIT" \
-    org.opencontainers.image.url="https://addons.community" \
+    org.opencontainers.image.url="https://frenck.dev/home-assistant-apps" \
     org.opencontainers.image.source="https://github.com/${BUILD_REPOSITORY}" \
     org.opencontainers.image.documentation="https://github.com/${BUILD_REPOSITORY}/blob/main/README.md" \
     org.opencontainers.image.created=${BUILD_DATE} \

@@ -3,7 +3,7 @@ name: Grocy
 version: dev
 slug: grocy
 description: ERP beyond your fridge! A groceries & household management solution for your home
-url: https://github.com/hassio-addons/addon-grocy
+url: https://github.com/hassio-addons/app-grocy
 ingress: true
 ingress_stream: true
 init: false
