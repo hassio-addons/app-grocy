@@ -92,4 +92,4 @@ GROCY_CURRENCY=$(bashio::config "currency")
 GROCY_ENTRY_PAGE=$(bashio::config 'entry_page')
 GROCY_GROCYCODE_TYPE=$(bashio::config 'grocycode_type')
 
-exec php-fpm82 -R --nodaemonize
+exec php-fpm85 -R --nodaemonize
