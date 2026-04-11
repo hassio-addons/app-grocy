@@ -15,26 +15,26 @@ RUN \
         nodejs=24.14.1-r0 \
         npm=11.11.0-r0 \
         patch=2.8-r0 \
-        php83-ctype=8.3.30-r0 \
-        php83-exif=8.3.30-r0 \
-        php83-fileinfo=8.3.30-r0 \
-        php83-fpm=8.3.30-r0 \
-        php83-gd=8.3.30-r0 \
-        php83-iconv=8.3.30-r0 \
-        php83-intl=8.3.30-r0 \
-        php83-ldap=8.3.30-r0 \
-        php83-mbstring=8.3.30-r0 \
-        php83-opcache=8.3.30-r0 \
-        php83-pdo_sqlite=8.3.30-r0 \
-        php83-pdo=8.3.30-r0 \
-        php83-simplexml=8.3.30-r0 \
-        php83-tokenizer=8.3.30-r0 \
-        php83=8.3.30-r0 \
+        php84-ctype=8.4.20-r0 \
+        php84-exif=8.4.20-r0 \
+        php84-fileinfo=8.4.20-r0 \
+        php84-fpm=8.4.20-r0 \
+        php84-gd=8.4.20-r0 \
+        php84-iconv=8.4.20-r0 \
+        php84-intl=8.4.20-r0 \
+        php84-ldap=8.4.20-r0 \
+        php84-mbstring=8.4.20-r0 \
+        php84-opcache=8.4.20-r0 \
+        php84-pdo_sqlite=8.4.20-r0 \
+        php84-pdo=8.4.20-r0 \
+        php84-simplexml=8.4.20-r0 \
+        php84-tokenizer=8.4.20-r0 \
+        php84=8.4.20-r0 \
     \
     && apk add --no-cache --virtual .build-dependencies \
         git=2.52.0-r0 \
-        php83-openssl=8.3.30-r0 \
-        php83-phar=8.3.30-r0 \
+        php84-openssl=8.4.20-r0 \
+        php84-phar=8.4.20-r0 \
     \
     && git clone --branch "${GROCY_VERSION}" --depth=1 \
         https://github.com/grocy/grocy.git /var/www/grocy \
@@ -54,7 +54,7 @@ RUN \
     && find /var/www/ -type f -name "*.md" -depth -exec rm -f {} \; \
     && rm -f -r \
         /etc/nginx \
-        /etc/php83/php-fpm.d/www.conf \
+        /etc/php84/php-fpm.d/www.conf \
         /root/.composer \
         /root/.npm \
         /tmp/* \
