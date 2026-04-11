@@ -1,4 +1,4 @@
-# Home Assistant Community Add-on: Grocy
+# Home Assistant Community App: Grocy
 
 [Grocy][grocy] - ERP beyond your fridge is a powerful groceries & household
 management solution for your home, delivering features like:
@@ -14,26 +14,26 @@ management solution for your home, delivering features like:
 
 ## Installation
 
-The installation of this add-on is pretty straightforward and not different in
-comparison to installing any other Home Assistant add-on.
+The installation of this app is pretty straightforward and not different in
+comparison to installing any other Home Assistant app.
 
-1. Click the Home Assistant My button below to open the add-on on your Home
+1. Click the Home Assistant My button below to open the app on your Home
    Assistant instance.
 
-   [![Open this add-on in your Home Assistant instance.][addon-badge]][addon]
+   [![Open this app in your Home Assistant instance.][addon-badge]][addon]
 
-1. Click the "Install" button to install the add-on.
-1. Start the "Grocy" add-on.
-1. Check the logs of the "Grocy" add-on to see if everything went well.
+1. Click the "Install" button to install the app.
+1. Start the "Grocy" app.
+1. Check the logs of the "Grocy" app to see if everything went well.
 1. Click on the "OPEN WEB UI" button to get into the interface of Grocy.
 1. The default login is user: `admin` password: `admin`.
-1. Enjoy the add-on!
+1. Enjoy the app!
 
 ## Configuration
 
-**Note**: _Remember to restart the add-on when the configuration is changed._
+**Note**: _Remember to restart the app when the configuration is changed._
 
-Example add-on configuration:
+Example app configuration:
 
 ```yaml
 culture: en
@@ -76,7 +76,7 @@ dealing with an unknown issue. Possible values are:
 - `info`: Normal (usually) interesting events.
 - `warning`: Exceptional occurrences that are not errors.
 - `error`: Runtime errors that do not require immediate action.
-- `fatal`: Something went terribly wrong. Add-on becomes unusable.
+- `fatal`: Something went terribly wrong. App becomes unusable.
 
 Please note that each level automatically includes log messages from a
 more severe level, e.g., `debug` also shows `info` messages. By default,
@@ -206,7 +206,7 @@ If no ingress user is set, the default login authentication is used.
 
 - Grocy support to provide custom lookup resources to lookup information
   on the internet based on the product barcode. This is currently not yet
-  supported by the add-on.
+  supported by the app.
 
 ## Changelog & Releases
 
@@ -227,7 +227,7 @@ Got questions?
 
 You have several options to get them answered:
 
-- The [Home Assistant Community Add-ons Discord chat server][discord] for add-on
+- The [Home Assistant Community Apps Discord chat server][discord] for app
   support and feature requests.
 - The [Home Assistant Discord chat server][discord-ha] for general Home
   Assistant discussions and questions.
@@ -247,7 +247,7 @@ check [the contributor's page][contributors].
 
 MIT License
 
-Copyright (c) 2019-2025 Franck Nijhof
+Copyright (c) 2019-2026 Franck Nijhof
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -270,15 +270,15 @@ SOFTWARE.
 [addon-badge]: https://my.home-assistant.io/badges/supervisor_addon.svg
 [addon]: https://my.home-assistant.io/redirect/supervisor_addon/?addon=a0d7b954_grocy&repository_url=https%3A%2F%2Fgithub.com%2Fhassio-addons%2Frepository
 [alpine-packages]: https://pkgs.alpinelinux.org/packages
-[contributors]: https://github.com/hassio-addons/addon-grocy/graphs/contributors
+[contributors]: https://github.com/hassio-addons/app-grocy/graphs/contributors
 [discord-ha]: https://discord.gg/c5DvZ4e
 [discord]: https://discord.me/hassioaddons
 [forum]: https://community.home-assistant.io/t/home-assistant-community-add-on-grocy/112422?u=frenck
 [frenck]: https://github.com/frenck
 [grocy-demo]: https://demo-en.grocy.info
 [grocy]: https://grocy.info/
-[issue]: https://github.com/hassio-addons/addon-grocy/issues
+[issue]: https://github.com/hassio-addons/app-grocy/issues
 [python-packages]: https://pypi.org/
 [reddit]: https://reddit.com/r/homeassistant
-[releases]: https://github.com/hassio-addons/addon-grocy/releases
+[releases]: https://github.com/hassio-addons/app-grocy/releases
 [semver]: https://semver.org/spec/v2.0.0.html

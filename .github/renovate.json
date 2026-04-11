@@ -39,6 +39,10 @@
   ],
   "packageRules": [
     {
+      "matchManagers": ["github-actions"],
+      "pinDigests": true
+    },
+    {
       "matchDatasources": ["repology"],
       "automerge": true
     },
@@ -49,11 +53,11 @@
       "matchDepNames": ["/alpine.*/php.*/"]
     },
     {
-      "groupName": "Add-on base image",
+      "groupName": "App base image",
       "matchDatasources": ["docker"]
     },
     {
-      "groupName": "Add-on base image",
+      "groupName": "App base image",
       "matchDatasources": ["docker"],
       "matchUpdateTypes": ["minor", "patch"],
       "automerge": true
