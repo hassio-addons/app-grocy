@@ -2,6 +2,10 @@ ARG BUILD_FROM=ghcr.io/hassio-addons/base:20.0.3
 # hadolint ignore=DL3006
 FROM ${BUILD_FROM}
 
+# Get composer
+# hadolint ignore=DL3022
+COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
+
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -10,38 +14,35 @@ ARG GROCY_VERSION="v4.6.0"
 # hadolint ignore=DL3003
 RUN \
     apk add --no-cache \
-        composer=2.9.5-r0 \
         nginx=1.28.3-r0 \
         nodejs=24.14.1-r0 \
         npm=11.11.0-r0 \
         patch=2.8-r0 \
-        php84-ctype=8.4.20-r0 \
-        php84-exif=8.4.20-r0 \
-        php84-fileinfo=8.4.20-r0 \
-        php84-fpm=8.4.20-r0 \
-        php84-gd=8.4.20-r0 \
-        php84-iconv=8.4.20-r0 \
-        php84-intl=8.4.20-r0 \
-        php84-ldap=8.4.20-r0 \
-        php84-mbstring=8.4.20-r0 \
-        php84-opcache=8.4.20-r0 \
-        php84-pdo_sqlite=8.4.20-r0 \
-        php84-pdo=8.4.20-r0 \
-        php84-simplexml=8.4.20-r0 \
-        php84-tokenizer=8.4.20-r0 \
-        php84=8.4.20-r0 \
+        php85-ctype=8.5.5-r0 \
+        php85-exif=8.5.5-r0 \
+        php85-fileinfo=8.5.5-r0 \
+        php85-fpm=8.5.5-r0 \
+        php85-gd=8.5.5-r0 \
+        php85-iconv=8.5.5-r0 \
+        php85-intl=8.5.5-r0 \
+        php85-ldap=8.5.5-r0 \
+        php85-mbstring=8.5.5-r0 \
+        php85-pdo_sqlite=8.5.5-r0 \
+        php85-pdo=8.5.5-r0 \
+        php85-simplexml=8.5.5-r0 \
+        php85=8.5.5-r0 \
     \
     && apk add --no-cache --virtual .build-dependencies \
         git=2.52.0-r0 \
-        php84-openssl=8.4.20-r0 \
-        php84-phar=8.4.20-r0 \
+        php85-openssl=8.5.5-r0 \
+        php85-phar=8.5.5-r0 \
     \
     && git clone --branch "${GROCY_VERSION}" --depth=1 \
         https://github.com/grocy/grocy.git /var/www/grocy \
     \
     && cd /var/www/grocy \
     \
-    && composer install --no-dev \
+    && php85 /usr/local/bin/composer install --no-dev --ignore-platform-req=ext-tokenizer \
     && npm install \
         --no-audit \
         --no-fund \
@@ -54,7 +55,7 @@ RUN \
     && find /var/www/ -type f -name "*.md" -depth -exec rm -f {} \; \
     && rm -f -r \
         /etc/nginx \
-        /etc/php84/php-fpm.d/www.conf \
+        /etc/php85/php-fpm.d/www.conf \
         /root/.composer \
         /root/.npm \
         /tmp/* \
