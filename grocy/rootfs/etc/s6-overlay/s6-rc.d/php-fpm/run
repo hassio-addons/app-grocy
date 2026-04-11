@@ -90,4 +90,4 @@ GROCY_CULTURE=$(bashio::config "culture")
 GROCY_CURRENCY=$(bashio::config "currency")
 GROCY_ENTRY_PAGE=$(bashio::config 'entry_page')
 
-exec php-fpm82 -R --nodaemonize
+exec php-fpm84 -R --nodaemonize
