@@ -6,7 +6,7 @@ server {
     allow   172.30.32.2;
     deny    all;
 
-    location ~ .php$ {
+    location ~ \.php$ {
         fastcgi_pass 127.0.0.1:9002;
         fastcgi_read_timeout 900;
         fastcgi_split_path_info ^(.+\.php)(/.+)$;
