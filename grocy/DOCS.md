@@ -323,7 +323,6 @@ SOFTWARE.
 [addon-badge]: https://my.home-assistant.io/badges/supervisor_addon.svg
 [escpos]: https://github.com/mike42/escpos-php
 [addon]: https://my.home-assistant.io/redirect/supervisor_addon/?addon=a0d7b954_grocy&repository_url=https%3A%2F%2Fgithub.com%2Fhassio-addons%2Frepository
-[alpine-packages]: https://pkgs.alpinelinux.org/packages
 [contributors]: https://github.com/hassio-addons/app-grocy/graphs/contributors
 [discord-ha]: https://discord.gg/c5DvZ4e
 [discord]: https://discord.me/hassioaddons
@@ -332,7 +331,6 @@ SOFTWARE.
 [grocy-demo]: https://demo-en.grocy.info
 [grocy]: https://grocy.info/
 [issue]: https://github.com/hassio-addons/app-grocy/issues
-[python-packages]: https://pypi.org/
 [reddit]: https://reddit.com/r/homeassistant
 [releases]: https://github.com/hassio-addons/app-grocy/releases
 [semver]: https://semver.org/spec/v2.0.0.html
