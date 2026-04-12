@@ -31,6 +31,11 @@ options:
     shoppinglist: true
     stock: true
     tasks: true
+  printers:
+    label_printer:
+      enabled: false
+    thermal_printer:
+      enabled: false
   tweaks:
     chores_assignment: true
     multiple_shopping_lists: true
@@ -58,6 +63,19 @@ schema:
     shoppinglist: bool
     stock: bool
     tasks: bool
+  printers:
+    label_printer:
+      enabled: bool
+      webhook: str?
+      run_server: bool?
+      params: str?
+      hook_json: bool?
+    thermal_printer:
+      enabled: bool
+      ip: str?
+      port: int(1,65535)?
+      print_quantity_name: bool?
+      print_notes: bool?
   tweaks:
     calendar_first_day_of_week: int(0,6)?
     chores_assignment: bool
