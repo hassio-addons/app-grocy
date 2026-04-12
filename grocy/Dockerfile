@@ -50,6 +50,7 @@ RUN \
         --no-update-notifier \
         --omit=dev \
     \
+    && mv /var/www/grocy/node_modules /var/www/grocy/public/packages \
     && npm cache clean --force \
     && apk del --no-cache --purge .build-dependencies \
     \
