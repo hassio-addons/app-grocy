@@ -28,6 +28,7 @@ RUN \
         php85-pdo_sqlite=8.5.5-r0 \
         php85-pdo=8.5.5-r0 \
         php85-simplexml=8.5.5-r0 \
+        php85-tokenizer=8.5.5-r0 \
         php85=8.5.5-r0 \
     \
     && apk add --no-cache --virtual .build-dependencies \
@@ -42,7 +43,7 @@ RUN \
     \
     && cd /var/www/grocy \
     \
-    && php85 /usr/local/bin/composer install --no-dev --ignore-platform-req=ext-tokenizer \
+    && php85 /usr/local/bin/composer install --no-dev \
     && npm install \
         --no-audit \
         --no-fund \
