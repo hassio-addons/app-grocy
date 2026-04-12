@@ -261,6 +261,13 @@ Set `printers.thermal_printer.enabled` to `true` to enable thermal printing.
   on the internet based on the product barcode. This is currently not yet
   supported by the app.
 
+- The barcode scanner feature requires camera access via the browser.
+  Browsers only allow camera access in a [secure context][secure-context]
+  (HTTPS or localhost). When accessing Grocy via the Home Assistant ingress
+  panel over HTTP, the browser will deny camera access. To use the barcode
+  scanner, enable SSL and access Grocy directly via its port instead of
+  through ingress.
+
 ## Changelog & Releases
 
 This repository keeps a change log using [GitHub's releases][releases]
@@ -333,4 +340,5 @@ SOFTWARE.
 [issue]: https://github.com/hassio-addons/app-grocy/issues
 [reddit]: https://reddit.com/r/homeassistant
 [releases]: https://github.com/hassio-addons/app-grocy/releases
+[secure-context]: https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts
 [semver]: https://semver.org/spec/v2.0.0.html
