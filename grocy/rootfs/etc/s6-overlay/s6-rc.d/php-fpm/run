@@ -53,7 +53,7 @@ if bashio::config.true 'features.label_printer'; then
 fi
 
 if bashio::config.true 'features.thermal_printer'; then
-    export FEATURE_FLAG_THERMAL_PRINTER=1
+    export GROCY_FEATURE_FLAG_THERMAL_PRINTER=1
     export GROCY_TPRINTER_IS_NETWORK_PRINTER=1
 fi
 
