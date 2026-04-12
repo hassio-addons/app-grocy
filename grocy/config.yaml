@@ -22,6 +22,7 @@ options:
   culture: en
   currency: USD
   entry_page: stock
+  grocycode_type: 2D
   features:
     batteries: true
     calendar: true
@@ -54,6 +55,7 @@ schema:
   culture: list(ca|cs|da|de|el_GR|en|en_GB|es|et|fi|fr|he_IL|hu|it|ja|ko_KR|lt|nl|no|pl|pt_BR|pt_PT|ro|ru|sk_SK|sl|sv_SE|ta|tr|uk|zh_CN|zh_TW)
   currency: match(^[A-Z]{3}$)
   entry_page: list(stock|shoppinglist|recipes|chores|tasks|batteries|equipment|calendar|mealplan)
+  grocycode_type: list(1D|2D)
   features:
     batteries: bool
     calendar: bool

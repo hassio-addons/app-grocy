@@ -9,6 +9,7 @@ declare mealday
 export GROCY_CULTURE
 export GROCY_CURRENCY
 export GROCY_ENTRY_PAGE
+export GROCY_GROCYCODE_TYPE
 
 bashio::log.info "Starting PHP-FPM..."
 
@@ -130,5 +131,6 @@ fi
 GROCY_CULTURE=$(bashio::config "culture")
 GROCY_CURRENCY=$(bashio::config "currency")
 GROCY_ENTRY_PAGE=$(bashio::config 'entry_page')
+GROCY_GROCYCODE_TYPE=$(bashio::config 'grocycode_type')
 
 exec php-fpm85 -R --nodaemonize
