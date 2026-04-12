@@ -31,8 +31,11 @@ options:
     shoppinglist: true
     stock: true
     tasks: true
-    label_printer: false
-    thermal_printer: false
+  printers:
+    label_printer:
+      enabled: false
+    thermal_printer:
+      enabled: false
   tweaks:
     chores_assignment: true
     multiple_shopping_lists: true
@@ -60,8 +63,19 @@ schema:
     shoppinglist: bool
     stock: bool
     tasks: bool
-    label_printer: bool
-    thermal_printer: bool
+  printers:
+    label_printer:
+      enabled: bool
+      webhook: str?
+      run_server: bool?
+      params: str?
+      hook_json: bool?
+    thermal_printer:
+      enabled: bool
+      ip: str?
+      port: int(1,65535)?
+      print_quantity_name: bool?
+      print_notes: bool?
   tweaks:
     calendar_first_day_of_week: int(0,6)?
     chores_assignment: bool
@@ -73,14 +87,6 @@ schema:
     stock_product_freezing: bool
     stock_product_opened_tracking: bool
     stock_count_opened_products_against_minimum_stock_amount: bool
-    label_printer_webhook: str?
-    label_printer_run_server: bool?
-    label_printer_params: str?
-    label_printer_hook_json: bool?
-    tprinter_print_quantity_name: bool?
-    tprinter_print_notes: bool?
-    tprinter_ip: str?
-    tprinter_port: int(1,65535)?
   ssl: bool
   certfile: str
   keyfile: str

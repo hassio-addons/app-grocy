@@ -48,6 +48,11 @@ features:
   shoppinglist: true
   stock: true
   tasks: true
+printers:
+  label_printer:
+    enabled: false
+  thermal_printer:
+    enabled: false
 tweaks:
   chores_assignment: true
   multiple_shopping_lists: true
@@ -171,8 +176,6 @@ or disabled:
 - `shoppinglist`
 - `stock`
 - `tasks`
-- `label_printer`
-- `thermal_printer`
 
 Set it `true` to enable it, `false` otherwise.
 
@@ -204,26 +207,36 @@ Allows you to specify a default ingress user if desired (e.g. `admin`).
 
 If no ingress user is set, the default login authentication is used.
 
-### Option: `Label Printer`
+### Option: `printers`
 
-Allows posting to a webhook to print labels
+Configures label and thermal printer support.
 
-- `label_printer_webhook` The URI that Grocy will POST to when asked to print a label
-- `label_printer_run_server` Whether the webhook will be called server- or client-side
-- `label_printer_params` Additional parameters supplied to the webhook
-- `label_printer_hook_json` TRUE to use JSON or FALSE to use normal POST request variables
+#### Label printer
 
-### Option: `Thermal Printer`
+Set `printers.label_printer.enabled` to `true` to enable label printing via a webhook.
 
-Thermal printers are receipt printers, not regular printers,
-the printer must support the ESC/POS protocol, see [ESC/POS protocol](https://github.com/mike42/escpos-php)
+- `enabled`: Set to `true` to enable, `false` otherwise.
+- `webhook`: The URI that Grocy will POST to when asked to print a label.
+- `run_server`: Set to `false` to call the webhook client-side instead of server-side.
+- `params`: Additional parameters supplied to the webhook.
+- `hook_json`: Set to `true` to POST as JSON, `false` to use regular form-encoded variables.
 
-**Note:** Only network printers are supported when running as a Home Assistant add-on. Direct USB/serial printer connections are not available in the containerized environment.
+#### Thermal printer
 
-- `tprinter_print_quantity_name` Set to false if you do not want to print the quantity names (related to the shopping list)
-- `tprinter_print_notes` Set to false if you do not want to print notes (related to the shopping list)
-- `tprinter_ip` IP of the network printer
-- `tprinter_port` Port of the network printer
+Thermal printers are receipt printers that support the ESC/POS protocol.
+See [ESC/POS protocol][escpos] for more information.
+
+**Note:** _Only network printers are supported when running as a Home Assistant
+add-on. Direct USB/serial printer connections are not available in the
+containerized environment._
+
+Set `printers.thermal_printer.enabled` to `true` to enable thermal printing.
+
+- `enabled`: Set to `true` to enable, `false` otherwise.
+- `ip`: IP address of the network printer.
+- `port`: Port of the network printer.
+- `print_quantity_name`: Set to `false` to omit quantity names from the printout.
+- `print_notes`: Set to `false` to omit notes from the printout.
 
 ## Known issues and limitations
 
@@ -291,6 +304,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 [addon-badge]: https://my.home-assistant.io/badges/supervisor_addon.svg
+[escpos]: https://github.com/mike42/escpos-php
 [addon]: https://my.home-assistant.io/redirect/supervisor_addon/?addon=a0d7b954_grocy&repository_url=https%3A%2F%2Fgithub.com%2Fhassio-addons%2Frepository
 [alpine-packages]: https://pkgs.alpinelinux.org/packages
 [contributors]: https://github.com/hassio-addons/app-grocy/graphs/contributors
