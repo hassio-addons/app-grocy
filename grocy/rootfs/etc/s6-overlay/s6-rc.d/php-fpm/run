@@ -14,35 +14,35 @@ export GROCY_GROCYCODE_TYPE
 bashio::log.info "Starting PHP-FPM..."
 
 if bashio::config.false 'features.batteries'; then
-    export GROCY_FEATURE_FLAG_BATTERIES=0
+    export GROCY_FEATURE_FLAG_BATTERIES=""
 fi
 
 if bashio::config.false 'features.calendar'; then
-    export GROCY_FEATURE_FLAG_CALENDAR=0
+    export GROCY_FEATURE_FLAG_CALENDAR=""
 fi
 
 if bashio::config.false 'features.chores'; then
-    export GROCY_FEATURE_FLAG_CHORES=0
+    export GROCY_FEATURE_FLAG_CHORES=""
 fi
 
 if bashio::config.false 'features.equipment'; then
-    export GROCY_FEATURE_FLAG_EQUIPMENT=0
+    export GROCY_FEATURE_FLAG_EQUIPMENT=""
 fi
 
 if bashio::config.false 'features.recipes'; then
-    export GROCY_FEATURE_FLAG_RECIPES=0
+    export GROCY_FEATURE_FLAG_RECIPES=""
 fi
 
 if bashio::config.false 'features.shoppinglist'; then
-    export GROCY_FEATURE_FLAG_SHOPPINGLIST=0
+    export GROCY_FEATURE_FLAG_SHOPPINGLIST=""
 fi
 
 if bashio::config.false 'features.stock'; then
-    export GROCY_FEATURE_FLAG_STOCK=0
+    export GROCY_FEATURE_FLAG_STOCK=""
 fi
 
 if bashio::config.false 'features.tasks'; then
-    export GROCY_FEATURE_FLAG_TASKS=0
+    export GROCY_FEATURE_FLAG_TASKS=""
 fi
 
 if bashio::config.true 'printers.label_printer.enabled'; then
@@ -60,7 +60,7 @@ if bashio::config.has_value 'tweaks.calendar_first_day_of_week'; then
 fi
 
 if bashio::config.false 'tweaks.chores_assignment'; then
-    export GROCY_FEATURE_FLAG_CHORES_ASSIGNMENTS=0
+    export GROCY_FEATURE_FLAG_CHORES_ASSIGNMENTS=""
 fi
 
 if bashio::config.has_value 'tweaks.meal_plan_first_day_of_week'; then
@@ -69,31 +69,31 @@ if bashio::config.has_value 'tweaks.meal_plan_first_day_of_week'; then
 fi
 
 if bashio::config.false 'tweaks.multiple_shopping_lists'; then
-    export GROCY_FEATURE_FLAG_SHOPPINGLIST_MULTIPLE_LISTS=0
+    export GROCY_FEATURE_FLAG_SHOPPINGLIST_MULTIPLE_LISTS=""
 fi
 
 if bashio::config.false 'tweaks.stock_best_before_date_tracking'; then
-    export GROCY_FEATURE_FLAG_STOCK_BEST_BEFORE_DATE_TRACKING=0
+    export GROCY_FEATURE_FLAG_STOCK_BEST_BEFORE_DATE_TRACKING=""
 fi
 
 if bashio::config.false 'tweaks.stock_location_tracking'; then
-    export GROCY_FEATURE_FLAG_STOCK_LOCATION_TRACKING=0
+    export GROCY_FEATURE_FLAG_STOCK_LOCATION_TRACKING=""
 fi
 
 if bashio::config.false 'tweaks.stock_price_tracking'; then
-    export GROCY_FEATURE_FLAG_STOCK_PRICE_TRACKING=0
+    export GROCY_FEATURE_FLAG_STOCK_PRICE_TRACKING=""
 fi
 
 if bashio::config.false 'tweaks.stock_product_freezing'; then
-    export GROCY_FEATURE_FLAG_STOCK_PRODUCT_FREEZING=0
+    export GROCY_FEATURE_FLAG_STOCK_PRODUCT_FREEZING=""
 fi
 
 if bashio::config.false 'tweaks.stock_product_opened_tracking'; then
-    export GROCY_FEATURE_FLAG_STOCK_PRODUCT_OPENED_TRACKING=0
+    export GROCY_FEATURE_FLAG_STOCK_PRODUCT_OPENED_TRACKING=""
 fi
 
 if bashio::config.false 'tweaks.stock_count_opened_products_against_minimum_stock_amount'; then
-    export GROCY_FEATURE_SETTING_STOCK_COUNT_OPENED_PRODUCTS_AGAINST_MINIMUM_STOCK_AMOUNT=0
+    export GROCY_FEATURE_SETTING_STOCK_COUNT_OPENED_PRODUCTS_AGAINST_MINIMUM_STOCK_AMOUNT=""
 fi
 
 if bashio::config.has_value 'printers.label_printer.webhook'; then
@@ -101,7 +101,7 @@ if bashio::config.has_value 'printers.label_printer.webhook'; then
 fi
 
 if bashio::config.false 'printers.label_printer.run_server'; then
-    export GROCY_LABEL_PRINTER_RUN_SERVER=0
+    export GROCY_LABEL_PRINTER_RUN_SERVER=""
 fi
 
 if bashio::config.has_value 'printers.label_printer.params'; then
@@ -113,11 +113,11 @@ if bashio::config.true 'printers.label_printer.hook_json'; then
 fi
 
 if bashio::config.false 'printers.thermal_printer.print_quantity_name'; then
-    export GROCY_TPRINTER_PRINT_QUANTITY_NAME=0
+    export GROCY_TPRINTER_PRINT_QUANTITY_NAME=""
 fi
 
 if bashio::config.false 'printers.thermal_printer.print_notes'; then
-    export GROCY_TPRINTER_PRINT_NOTES=0
+    export GROCY_TPRINTER_PRINT_NOTES=""
 fi
 
 if bashio::config.has_value 'printers.thermal_printer.ip'; then
