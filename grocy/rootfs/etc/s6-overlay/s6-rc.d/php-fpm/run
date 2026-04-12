@@ -97,7 +97,7 @@ if bashio::config.false 'tweaks.stock_count_opened_products_against_minimum_stoc
 fi
 
 if bashio::config.has_value 'printers.label_printer.webhook'; then
-    export GROCY_LABEL_PRINTER_WEBHOOK=$(bashio::config 'printers.label_printer.webhook')
+    export GROCY_LABEL_PRINTER_WEBHOOK="$(bashio::config 'printers.label_printer.webhook')"
 fi
 
 if bashio::config.false 'printers.label_printer.run_server'; then
@@ -105,7 +105,7 @@ if bashio::config.false 'printers.label_printer.run_server'; then
 fi
 
 if bashio::config.has_value 'printers.label_printer.params'; then
-    export GROCY_LABEL_PRINTER_PARAMS=$(bashio::config 'printers.label_printer.params')
+    export GROCY_LABEL_PRINTER_PARAMS="$(bashio::config 'printers.label_printer.params')"
 fi
 
 if bashio::config.true 'printers.label_printer.hook_json'; then
@@ -121,11 +121,11 @@ if bashio::config.false 'printers.thermal_printer.print_notes'; then
 fi
 
 if bashio::config.has_value 'printers.thermal_printer.ip'; then
-    export GROCY_TPRINTER_IP=$(bashio::config 'printers.thermal_printer.ip')
+    export GROCY_TPRINTER_IP="$(bashio::config 'printers.thermal_printer.ip')"
 fi
 
 if bashio::config.has_value 'printers.thermal_printer.port'; then
-    export GROCY_TPRINTER_PORT=$(bashio::config 'printers.thermal_printer.port')
+    export GROCY_TPRINTER_PORT="$(bashio::config 'printers.thermal_printer.port')"
 fi
 
 GROCY_CULTURE=$(bashio::config "culture")
