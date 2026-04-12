@@ -9,6 +9,9 @@ if ! bashio::fs.directory_exists "/data/grocy"; then
 
     # Setup structure
     cp -R /var/www/grocy/data /data/grocy
+
+    bashio::log.warning "The default login credentials are username: 'admin' password: 'admin'."
+    bashio::log.warning "Please change the password after first login!"
 fi
 
 if ! bashio::fs.directory_exists "/data/grocy/viewcache"; then
