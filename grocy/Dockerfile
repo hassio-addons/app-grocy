@@ -71,6 +71,9 @@ RUN \
 # Copy root filesystem
 COPY rootfs /
 
+# Set Timezone for PHP runtime 
+RUN printf '[PHP]\ndate.timezone = "${TZ}"\n' > /etc/php85/conf.d/50-tzone.ini
+
 # Build arguments
 ARG BUILD_ARCH
 ARG BUILD_DATE
