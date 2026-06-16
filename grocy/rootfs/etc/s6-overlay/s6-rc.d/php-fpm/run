@@ -128,6 +128,16 @@ if bashio::config.has_value 'printers.thermal_printer.port'; then
     export GROCY_TPRINTER_PORT="$(bashio::config 'printers.thermal_printer.port')"
 fi
 
+if bashio::config.true 'ldap.enabled'; then
+    export GROCY_AUTH_CLASS="Grocy\Middleware\LdapAuthMiddleware"
+    export GROCY_LDAP_ADDRESS="$(bashio::config 'ldap.address')"
+    export GROCY_LDAP_BASE_DN="$(bashio::config 'ldap.base_dn')"
+    export GROCY_LDAP_BIND_DN="$(bashio::config 'ldap.bind_dn')"
+    export GROCY_LDAP_BIND_PW="$(bashio::config 'ldap.bind_pw')"
+    export GROCY_LDAP_USER_FILTER="$(bashio::config 'ldap.filter')"
+    export GROCY_LDAP_UID_ATTR="$(bashio::config 'ldap.uid_attr')"
+fi
+
 GROCY_CULTURE=$(bashio::config "culture")
 GROCY_CURRENCY=$(bashio::config "currency")
 GROCY_ENTRY_PAGE=$(bashio::config 'entry_page')

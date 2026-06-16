@@ -50,6 +50,8 @@ options:
   certfile: fullchain.pem
   keyfile: privkey.pem
   grocy_ingress_user: ""
+  ldap:
+    enabled: false
 schema:
   log_level: list(trace|debug|info|notice|warning|error|fatal)?
   culture: list(ca|cs|da|de|el_GR|en|en_GB|es|et|fi|fr|he_IL|hu|it|ja|ko_KR|lt|nl|no|pl|pt_BR|pt_PT|ro|ru|sk_SK|sl|sv_SE|ta|tr|uk|zh_CN|zh_TW)
@@ -93,3 +95,10 @@ schema:
   certfile: str
   keyfile: str
   grocy_ingress_user: str
+  ldap:
+    enabled: bool
+    address: str?
+    base_dn: str?
+    bind_dn: str?
+    filter: str?
+    uid_attr: list(sAMAccountName|uid|cn)?
