@@ -8,7 +8,7 @@ index 551d2eb0..1ce31f69 100644
  		Grocy.CurrentUrlRelative = "/" + window.location.href.split('?')[0].replace(Grocy.BaseUrl, "");
 +		if(Grocy.BaseUrl.indexOf('http') != 0 || Grocy.BaseUrl.indexOf('hassio_ingress') >= 0) {
 +			Grocy.BaseUrl = window.location.origin + '{{ $U('/') }}';
-+			Grocy.CurrentUrlRelative = "/" + window.location.pathname.replace(Grocy.BaseUrl, "");
++			Grocy.CurrentUrlRelative = "/" + window.location.pathname.replace((new URL(Grocy.BaseUrl)).pathname, "");
 +		};
  		Grocy.View = '{{ $viewName }}';
  		Grocy.Currency = '{{ GROCY_CURRENCY }}';
