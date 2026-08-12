@@ -2,6 +2,7 @@ diff --git a/views/layout/default.blade.php b/views/layout/default.blade.php
 index 551d2eb0..1ce31f69 100644
 --- a/views/layout/default.blade.php
 +++ b/views/layout/default.blade.php
+-@@ -94,6 +94,10 @@
 +@@ -94,6 +94,9 @@
  		Grocy.Mode = '{{ GROCY_MODE }}';
  		Grocy.BaseUrl = '{{ $U('/') }}';
