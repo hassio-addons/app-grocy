@@ -6,10 +6,9 @@ index 551d2eb0..1ce31f69 100644
  		Grocy.Mode = '{{ GROCY_MODE }}';
  		Grocy.BaseUrl = '{{ $U('/') }}';
  		Grocy.CurrentUrlRelative = "/" + window.location.href.split('?')[0].replace(Grocy.BaseUrl, "");
-+		if(Grocy.BaseUrl.indexOf('http') != 0 || Grocy.BaseUrl.indexOf('hassio_ingress') >= 0) {
-+			Grocy.BaseUrl = window.location.origin + '{{ $U('/') }}';
-+			Grocy.CurrentUrlRelative = "/" + window.location.pathname.replace((new URL(Grocy.BaseUrl)).pathname, "");
-+		};
++		var grocyBaseUrl = new URL(Grocy.BaseUrl, window.location.origin);
++		Grocy.BaseUrl = grocyBaseUrl.href;
++		Grocy.CurrentUrlRelative = "/" + window.location.pathname.replace(grocyBaseUrl.pathname, "");
  		Grocy.View = '{{ $viewName }}';
  		Grocy.Currency = '{{ GROCY_CURRENCY }}';
  		Grocy.EnergyUnit = '{{ GROCY_ENERGY_UNIT }}';
