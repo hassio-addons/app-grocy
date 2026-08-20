@@ -1,4 +1,4 @@
-ARG BUILD_FROM=ghcr.io/hassio-addons/base:20.1.1
+ARG BUILD_FROM=ghcr.io/hassio-addons/base:21.0.2
 # hadolint ignore=DL3006
 FROM ${BUILD_FROM}
 
@@ -14,29 +14,29 @@ ARG GROCY_VERSION="v4.6.0"
 # hadolint ignore=DL3003
 RUN \
     apk add --no-cache \
-        nginx=1.28.3-r1 \
+        nginx=1.30.4-r1 \
         patch=2.8-r0 \
-        php85-ctype=8.5.6-r0 \
-        php85-exif=8.5.6-r0 \
-        php85-fileinfo=8.5.6-r0 \
-        php85-fpm=8.5.6-r0 \
-        php85-gd=8.5.6-r0 \
-        php85-iconv=8.5.6-r0 \
-        php85-intl=8.5.6-r0 \
-        php85-ldap=8.5.6-r0 \
-        php85-mbstring=8.5.6-r0 \
-        php85-pdo_sqlite=8.5.6-r0 \
-        php85-pdo=8.5.6-r0 \
-        php85-simplexml=8.5.6-r0 \
-        php85-tokenizer=8.5.6-r0 \
-        php85-openssl=8.5.6-r0 \
-        php85=8.5.6-r0 \
+        php85-ctype=8.5.9-r0 \
+        php85-exif=8.5.9-r0 \
+        php85-fileinfo=8.5.9-r0 \
+        php85-fpm=8.5.9-r0 \
+        php85-gd=8.5.9-r0 \
+        php85-iconv=8.5.9-r0 \
+        php85-intl=8.5.9-r0 \
+        php85-ldap=8.5.9-r0 \
+        php85-mbstring=8.5.9-r0 \
+        php85-pdo_sqlite=8.5.9-r0 \
+        php85-pdo=8.5.9-r0 \
+        php85-simplexml=8.5.9-r0 \
+        php85-tokenizer=8.5.9-r0 \
+        php85-openssl=8.5.9-r0 \
+        php85=8.5.9-r0 \
     \
     && apk add --no-cache --virtual .build-dependencies \
-        git=2.52.0-r0 \
-        nodejs=24.14.1-r0 \
-        npm=11.11.0-r0 \
-        php85-phar=8.5.6-r0 \
+        git=2.54.0-r0 \
+        nodejs=24.18.1-r0 \
+        npm=11.12.1-r0 \
+        php85-phar=8.5.9-r0 \
     \
     && git clone --branch "${GROCY_VERSION}" --depth=1 \
         https://github.com/grocy/grocy.git /var/www/grocy \
