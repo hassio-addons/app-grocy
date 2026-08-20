@@ -7,14 +7,14 @@
 
 # Generate Ingress PHP-FPM configuration
 bashio::var.json \
-    interface "$(bashio::addon.ip_address)" \
+    interface "$(bashio::app.ip_address)" \
     grocy_user "$(bashio::config 'grocy_ingress_user')" \
     | tempio \
         -template /etc/nginx/templates/ingress.gtpl \
         -out /etc/nginx/servers/ingress.conf
 
 # Generate direct access configuration, if enabled.
-if bashio::var.has_value "$(bashio::addon.port 80)"; then
+if bashio::var.has_value "$(bashio::app.port 80)"; then
     bashio::config.require.ssl
     bashio::var.json \
         certfile "$(bashio::config 'certfile')" \
