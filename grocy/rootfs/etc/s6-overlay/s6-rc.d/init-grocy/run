@@ -38,9 +38,13 @@ ln -s /data/grocy /var/www/grocy/data
 bashio::log.info "Patching Grocy..."
 cd /var/www/grocy || bashio::exit.nok 'Failed cd'
 for patch_file in /patches/*.patch; do
-    # Check first, so a patch that only partially applies leaves no trace
-    if patch --batch --dry-run -p1 < "${patch_file}" > /dev/null; then
-        patch --batch -p1 < "${patch_file}"
+    # Check before applying, so a patch that only partially applies leaves no
+    # trace. --forward keeps patch from reverting our own work when this runs
+    # again in a container that was restarted instead of recreated.
+    if patch --forward --dry-run -p1 < "${patch_file}" > /dev/null 2>&1; then
+        patch --forward -p1 < "${patch_file}"
+    elif patch --reverse --dry-run -p1 < "${patch_file}" > /dev/null 2>&1; then
+        bashio::log.debug "Patch was already applied: ${patch_file}"
     else
         bashio::log.warning \
             "Failed to apply patch: ${patch_file}, this is likely caused by" \
