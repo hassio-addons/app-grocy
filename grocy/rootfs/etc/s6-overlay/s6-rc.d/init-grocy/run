@@ -14,16 +14,41 @@ if ! bashio::fs.directory_exists "/data/grocy"; then
     bashio::log.warning "Please change the password after first login!"
 fi
 
-if ! bashio::fs.directory_exists "/data/grocy/viewcache"; then
-    mkdir -p /data/grocy/viewcache
-    chown nginx:nginx /data/grocy/viewcache
+# The view cache is keyed by a hash of the Grocy version and the base URL, so
+# the ingress and direct access pools each get their own folder. Only clear it
+# when the Grocy version changed, which is what leaves stale folders behind.
+# Clearing it on every start would make the first request of every pool a
+# redirect to the root, which is exactly what the split cache prevents.
+viewcache_stamp="/data/grocy/.viewcache-version"
+grocy_version=$(sha256sum /var/www/grocy/version.json | cut -d' ' -f1)
+if [[ "$(cat "${viewcache_stamp}" 2>/dev/null)" != "${grocy_version}" ]]; then
+    bashio::log.debug 'Grocy version changed, clearing the view cache...'
+    rm -f -r /data/grocy/viewcache
 fi
+
+mkdir -p /data/grocy/viewcache
+chown nginx:nginx /data/grocy/viewcache
+echo "${grocy_version}" > "${viewcache_stamp}"
 
 bashio::log.debug 'Symlinking data directory to persistent storage location...'
 rm -f -r /var/www/grocy/data
 ln -s /data/grocy /var/www/grocy/data
 
-# Patch current relative URL handling braindamage
-bashio::log.info "Patching Grocy to fix relative URL handling..."
+# Patch Grocy braindamage
+bashio::log.info "Patching Grocy..."
 cd /var/www/grocy || bashio::exit.nok 'Failed cd'
-patch -p1 < /patches/fix_braindamage.patch || true
+for patch_file in /patches/*.patch; do
+    # Check before applying, so a patch that only partially applies leaves no
+    # trace. --forward keeps patch from reverting our own work when this runs
+    # again in a container that was restarted instead of recreated.
+    if patch --forward --dry-run -p1 < "${patch_file}" > /dev/null 2>&1; then
+        patch --forward -p1 < "${patch_file}"
+    elif patch --reverse --dry-run -p1 < "${patch_file}" > /dev/null 2>&1; then
+        bashio::log.debug "Patch was already applied: ${patch_file}"
+    else
+        bashio::log.warning \
+            "Failed to apply patch: ${patch_file}, this is likely caused by" \
+            "a Grocy update. Please report this at" \
+            "https://github.com/hassio-addons/app-grocy/issues"
+    fi
+done

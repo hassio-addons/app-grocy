@@ -1,0 +1,53 @@
+diff --git a/app.php b/app.php
+index 9224796..ce945d4 100644
+--- a/app.php
++++ b/app.php
+@@ -50,17 +50,23 @@ catch (\Grocy\Helpers\EInvalidConfig $ex)
+ 	exit('Invalid setting in config.php: ' . $ex->getMessage());
+ }
+ 
+-// Create data/viewcache folder if it doesn't exist
+-$viewcachePath = GROCY_DATAPATH . '/viewcache';
+-if (!file_exists($viewcachePath))
+-{
+-	mkdir($viewcachePath);
+-}
+-
+ // Empty data/viewcache when and trigger database migrations when:
+ // The version changed (so when an update was done)
+ // GROCY_BASE_URL OR GROCY_BASE_PATH changed
+ $hash = hash('sha256', file_get_contents(__DIR__ . '/version.json') . GROCY_BASE_URL . GROCY_BASE_PATH);
++
++// Create the viewcache folder if it doesn't exist.
++// This add-on serves ingress and direct access from two PHP-FPM pools that have
++// a different GROCY_BASE_URL, so every configuration gets its own cache folder.
++// Sharing one folder makes each pool wipe the other's cache and redirect to the
++// root on every request.
++define('GROCY_VIEWCACHE_PATH', GROCY_DATAPATH . '/viewcache/' . $hash);
++$viewcachePath = GROCY_VIEWCACHE_PATH;
++if (!file_exists($viewcachePath))
++{
++	mkdir($viewcachePath, 0777, true);
++}
++
+ $hashCacheFile = $viewcachePath . "/$hash.txt";
+ if (!file_exists($hashCacheFile))
+ {
+@@ -84,7 +90,7 @@ $app = AppFactory::create();
+ $container = $app->getContainer();
+ $container->set('view', function (Container $container)
+ {
+-	return new SlimBladeView(__DIR__ . '/views', GROCY_DATAPATH . '/viewcache');
++	return new SlimBladeView(__DIR__ . '/views', GROCY_VIEWCACHE_PATH);
+ });
+ 
+ $container->set('UrlManager', function (Container $container)
+@@ -126,7 +132,7 @@ $errorMiddleware->setDefaultErrorHandler(
+ 
+ $app->add(new CorsMiddleware($app->getResponseFactory()));
+ 
+-$app->getRouteCollector()->setCacheFile(GROCY_DATAPATH . '/viewcache/route_cache.php');
++$app->getRouteCollector()->setCacheFile(GROCY_VIEWCACHE_PATH . '/route_cache.php');
+ 
+ ob_clean(); // No response output before here
+ $app->run();
