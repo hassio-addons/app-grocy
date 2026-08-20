@@ -2,14 +2,13 @@ diff --git a/views/layout/default.blade.php b/views/layout/default.blade.php
 index 551d2eb0..1ce31f69 100644
 --- a/views/layout/default.blade.php
 +++ b/views/layout/default.blade.php
-@@ -94,6 +94,10 @@
+@@ -94,6 +94,9 @@
  		Grocy.Mode = '{{ GROCY_MODE }}';
  		Grocy.BaseUrl = '{{ $U('/') }}';
  		Grocy.CurrentUrlRelative = "/" + window.location.href.split('?')[0].replace(Grocy.BaseUrl, "");
-+		if(Grocy.BaseUrl.indexOf('http') != 0 || Grocy.BaseUrl.indexOf('hassio_ingress') >= 0) {
-+			Grocy.BaseUrl = window.location.origin + '{{ $U('/') }}';
-+			Grocy.CurrentUrlRelative = "/" + window.location.pathname.replace(Grocy.BaseUrl, "");
-+		};
++		var grocyBaseUrl = new URL(Grocy.BaseUrl, window.location.origin);
++		Grocy.BaseUrl = grocyBaseUrl.href;
++		Grocy.CurrentUrlRelative = "/" + window.location.pathname.replace(grocyBaseUrl.pathname, "");
  		Grocy.View = '{{ $viewName }}';
  		Grocy.Currency = '{{ GROCY_CURRENCY }}';
  		Grocy.EnergyUnit = '{{ GROCY_ENERGY_UNIT }}';
