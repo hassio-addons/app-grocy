@@ -14,13 +14,21 @@ if ! bashio::fs.directory_exists "/data/grocy"; then
     bashio::log.warning "Please change the password after first login!"
 fi
 
-# The view cache is keyed by Grocy's configuration hash, and the ingress and
-# direct access pools each get their own folder. Start from a clean slate so
-# folders of previous configurations (e.g. a rotated ingress entry) don't pile up.
-bashio::log.debug 'Clearing the Grocy view cache...'
-rm -f -r /data/grocy/viewcache
+# The view cache is keyed by a hash of the Grocy version and the base URL, so
+# the ingress and direct access pools each get their own folder. Only clear it
+# when the Grocy version changed, which is what leaves stale folders behind.
+# Clearing it on every start would make the first request of every pool a
+# redirect to the root, which is exactly what the split cache prevents.
+viewcache_stamp="/data/grocy/.viewcache-version"
+grocy_version=$(sha256sum /var/www/grocy/version.json | cut -d' ' -f1)
+if [[ "$(cat "${viewcache_stamp}" 2>/dev/null)" != "${grocy_version}" ]]; then
+    bashio::log.debug 'Grocy version changed, clearing the view cache...'
+    rm -f -r /data/grocy/viewcache
+fi
+
 mkdir -p /data/grocy/viewcache
 chown nginx:nginx /data/grocy/viewcache
+echo "${grocy_version}" > "${viewcache_stamp}"
 
 bashio::log.debug 'Symlinking data directory to persistent storage location...'
 rm -f -r /var/www/grocy/data
@@ -30,7 +38,10 @@ ln -s /data/grocy /var/www/grocy/data
 bashio::log.info "Patching Grocy..."
 cd /var/www/grocy || bashio::exit.nok 'Failed cd'
 for patch_file in /patches/*.patch; do
-    if ! patch -p1 < "${patch_file}"; then
+    # Check first, so a patch that only partially applies leaves no trace
+    if patch --batch --dry-run -p1 < "${patch_file}" > /dev/null; then
+        patch --batch -p1 < "${patch_file}"
+    else
         bashio::log.warning \
             "Failed to apply patch: ${patch_file}, this is likely caused by" \
             "a Grocy update. Please report this at" \
