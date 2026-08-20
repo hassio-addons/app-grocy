@@ -9,13 +9,13 @@
 bashio::var.json \
     name "ingress" \
     port "^9002" \
-    base "$(bashio::addon.ingress_entry)" \
+    base "$(bashio::app.ingress_entry)" \
     | tempio \
         -template /etc/php85/templates/php-fpm.gtpl \
         -out /etc/php85/php-fpm.d/ingress.conf
 
 # Generate direct access configuration, if enabled.
-if bashio::var.has_value "$(bashio::addon.port 80)"; then
+if bashio::var.has_value "$(bashio::app.port 80)"; then
     bashio::var.json \
         name "www" \
         port "^9001" \
