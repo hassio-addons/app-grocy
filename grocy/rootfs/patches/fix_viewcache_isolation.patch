@@ -1,8 +1,8 @@
 diff --git a/app.php b/app.php
-index 9224796..ce945d4 100644
+index 9d913d9..28f5211 100644
 --- a/app.php
 +++ b/app.php
-@@ -50,17 +50,23 @@ catch (\Grocy\Helpers\EInvalidConfig $ex)
+@@ -49,17 +49,23 @@ catch (\Grocy\Helpers\EInvalidConfig $ex)
  	exit('Invalid setting in config.php: ' . $ex->getMessage());
  }
  
@@ -33,7 +33,7 @@ index 9224796..ce945d4 100644
  $hashCacheFile = $viewcachePath . "/$hash.txt";
  if (!file_exists($hashCacheFile))
  {
-@@ -84,7 +90,7 @@ $app = AppFactory::create();
+@@ -83,7 +89,7 @@ $app = AppFactory::create();
  $container = $app->getContainer();
  $container->set('view', function (Container $container)
  {
@@ -42,9 +42,9 @@ index 9224796..ce945d4 100644
  });
  
  $container->set('UrlManager', function (Container $container)
-@@ -126,7 +132,7 @@ $errorMiddleware->setDefaultErrorHandler(
- 
- $app->add(new CorsMiddleware($app->getResponseFactory()));
+@@ -115,7 +121,7 @@ $app->addRoutingMiddleware();
+ $errorMiddleware = $app->addErrorMiddleware(true, false, false);
+ $errorMiddleware->setDefaultErrorHandler(new ExceptionController($container, $app->getResponseFactory()));
  
 -$app->getRouteCollector()->setCacheFile(GROCY_DATAPATH . '/viewcache/route_cache.php');
 +$app->getRouteCollector()->setCacheFile(GROCY_VIEWCACHE_PATH . '/route_cache.php');

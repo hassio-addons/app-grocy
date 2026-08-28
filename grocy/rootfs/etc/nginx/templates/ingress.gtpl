@@ -13,7 +13,7 @@ server {
         fastcgi_index index.php;
 
         {{ if .grocy_user }}
-        fastcgi_param GROCY_AUTH_CLASS "Grocy\Middleware\ReverseProxyAuthMiddleware";
+        fastcgi_param GROCY_AUTH_CLASS "Grocy\Middleware\Auth\ReverseProxyAuthMiddleware";
         fastcgi_param GROCY_REVERSE_PROXY_AUTH_HEADER REMOTE_USER;
         fastcgi_param HTTP_REMOTE_USER {{ .grocy_user }};
         {{ end }}
