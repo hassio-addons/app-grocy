@@ -49,6 +49,7 @@ options:
   ssl: true
   certfile: fullchain.pem
   keyfile: privkey.pem
+  ha_user: true
   grocy_ingress_user: ""
 schema:
   log_level: list(trace|debug|info|notice|warning|error|fatal)?
@@ -92,4 +93,5 @@ schema:
   ssl: bool
   certfile: str
   keyfile: str
+  ha_user: bool
   grocy_ingress_user: str

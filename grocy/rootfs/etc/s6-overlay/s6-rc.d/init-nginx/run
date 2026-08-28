@@ -9,6 +9,7 @@
 bashio::var.json \
     interface "$(bashio::app.ip_address)" \
     grocy_user "$(bashio::config 'grocy_ingress_user')" \
+    ha_user "$(bashio::config 'ha_user')" \
     | tempio \
         -template /etc/nginx/templates/ingress.gtpl \
         -out /etc/nginx/servers/ingress.conf
