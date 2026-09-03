@@ -224,6 +224,16 @@ Allows you to specify a default ingress user if desired (e.g. `admin`).
 
 If no ingress user is set, the default login authentication is used.
 
+### Option: `ha_user`
+
+Allows you to use native home assistant login through ingress.
+
+Set to `true` to enable this, `false` otherwise.
+
+When `true`,
+ The current user accessing ingress is forwarded to grocy.  
+ `grocy_ingress_user` option is ignored
+
 ### Option: `printers`
 
 Configures label and thermal printer support.

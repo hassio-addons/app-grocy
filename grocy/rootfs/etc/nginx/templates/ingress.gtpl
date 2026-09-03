@@ -12,10 +12,14 @@ server {
         fastcgi_split_path_info ^(.+\.php)(/.+)$;
         fastcgi_index index.php;
 
-        {{ if .grocy_user }}
+        {{ if or .ha_user .grocy_user }}
         fastcgi_param GROCY_AUTH_CLASS "Grocy\Middleware\Auth\ReverseProxyAuthMiddleware";
         fastcgi_param GROCY_REVERSE_PROXY_AUTH_HEADER REMOTE_USER;
+        {{ if .ha_users }}
+        fastcgi_param HTTP_REMOTE_USER $http_x_remote_user_name;
+        {{ else if .grocy_user }}
         fastcgi_param HTTP_REMOTE_USER {{ .grocy_user }};
+        {{ end }}
         {{ end }}
 
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
