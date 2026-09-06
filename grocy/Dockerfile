@@ -10,7 +10,7 @@ COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Setup base
-ARG GROCY_VERSION="v4.7.0"
+ARG GROCY_VERSION="v4.7.1"
 # hadolint ignore=DL3003
 RUN \
     apk add --no-cache \
