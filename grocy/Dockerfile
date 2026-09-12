@@ -9,13 +9,16 @@ COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
+# Patches applied to the Grocy source during the build, so a Grocy update that
+# no longer matches them fails the build instead of the add-on at runtime.
+COPY patches /patches
+
 # Setup base
 ARG GROCY_VERSION="v4.7.1"
 # hadolint ignore=DL3003
 RUN \
     apk add --no-cache \
         nginx=1.30.4-r1 \
-        patch=2.8-r0 \
         php85-ctype=8.5.10-r0 \
         php85-exif=8.5.10-r0 \
         php85-fileinfo=8.5.10-r0 \
@@ -36,12 +39,16 @@ RUN \
         git=2.54.0-r0 \
         nodejs=24.18.1-r0 \
         npm=11.12.1-r0 \
+        patch=2.8-r0 \
         php85-phar=8.5.10-r0 \
     \
     && git clone --branch "${GROCY_VERSION}" --depth=1 \
         https://github.com/grocy/grocy.git /var/www/grocy \
     \
     && cd /var/www/grocy \
+    \
+    && patch -p1 < /patches/fix_braindamage.patch \
+    && patch -p1 < /patches/fix_viewcache_isolation.patch \
     \
     && php85 /usr/local/bin/composer install --no-dev \
     && npm install \
@@ -58,6 +65,7 @@ RUN \
     && rm -f -r \
         /etc/nginx \
         /etc/php85/php-fpm.d/www.conf \
+        /patches \
         /root/.composer \
         /root/.npm \
         /tmp/* \

@@ -1,8 +1,8 @@
 diff --git a/app.php b/app.php
-index 9d913d9..28f5211 100644
+index 73515c7..fcf3d5f 100644
 --- a/app.php
 +++ b/app.php
-@@ -49,17 +49,23 @@ catch (\Grocy\Helpers\EInvalidConfig $ex)
+@@ -50,13 +50,6 @@ catch (\Grocy\Helpers\EInvalidConfig $ex)
  	exit('Invalid setting in config.php: ' . $ex->getMessage());
  }
  
@@ -16,7 +16,10 @@ index 9d913d9..28f5211 100644
  // Empty data/viewcache when and trigger database migrations when:
  // The version changed (so when an update was done)
  // GROCY_BASE_URL OR GROCY_BASE_PATH changed
- $hash = hash('sha256', file_get_contents(__DIR__ . '/version.json') . GROCY_BASE_URL . GROCY_BASE_PATH);
+@@ -66,6 +59,19 @@ if (GROCY_MODE === 'dev')
+ 	// For dev mode use routes.php to track changes
+ 	$hash = hash('sha256', file_get_contents(__DIR__ . '/routes.php'));
+ }
 +
 +// Create the viewcache folder if it doesn't exist.
 +// This add-on serves ingress and direct access from two PHP-FPM pools that have
@@ -33,7 +36,7 @@ index 9d913d9..28f5211 100644
  $hashCacheFile = $viewcachePath . "/$hash.txt";
  if (!file_exists($hashCacheFile))
  {
-@@ -83,7 +89,7 @@ $app = AppFactory::create();
+@@ -89,7 +95,7 @@ $app = AppFactory::create();
  $container = $app->getContainer();
  $container->set('view', function (Container $container)
  {
@@ -42,7 +45,7 @@ index 9d913d9..28f5211 100644
  });
  
  $container->set('UrlManager', function (Container $container)
-@@ -115,7 +121,7 @@ $app->addRoutingMiddleware();
+@@ -121,7 +127,7 @@ $app->addRoutingMiddleware();
  $errorMiddleware = $app->addErrorMiddleware(true, false, false);
  $errorMiddleware->setDefaultErrorHandler(new ExceptionController($container, $app->getResponseFactory()));
  
