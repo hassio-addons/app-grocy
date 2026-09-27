@@ -5,6 +5,10 @@
 # Configures PHP-FPM for use with Grocy
 # ==============================================================================
 
+# PHP does not read the TZ environment variable, so pass on the timezone
+# provided by the Supervisor. Grocy relies on it, e.g., for the iCal export.
+echo "date.timezone = ${TZ:-UTC}" > /etc/php85/conf.d/98-timezone.ini
+
 # Generate Ingress configuration
 bashio::var.json \
     name "ingress" \
