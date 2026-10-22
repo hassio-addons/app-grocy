@@ -18,7 +18,7 @@ ARG GROCY_VERSION="v4.7.1"
 # hadolint ignore=DL3003
 RUN \
     apk add --no-cache \
-        nginx=1.30.4-r1 \
+        nginx=1.30.6-r0 \
         php85-ctype=8.5.12-r0 \
         php85-exif=8.5.12-r0 \
         php85-fileinfo=8.5.12-r0 \
