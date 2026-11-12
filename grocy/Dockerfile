@@ -37,7 +37,7 @@ RUN \
     \
     && apk add --no-cache --virtual .build-dependencies \
         git=2.54.1-r0 \
-        nodejs=24.22.1-r1 \
+        nodejs=24.22.3-r0 \
         npm=11.12.1-r0 \
         patch=2.8.1-r0 \
         php85-phar=8.5.12-r0 \
